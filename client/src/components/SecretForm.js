@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import "./SecretForm.css";
-
+const API_BASE=process.env.REACT_APP_API_URL||'http://localhost:5000'
 const SecretForm = ({ onNewSecret }) => {
   const [text, setText] = useState("");
   const [category, setCategory] = useState("random");
@@ -11,7 +11,7 @@ const SecretForm = ({ onNewSecret }) => {
     if (!text.trim()) return;
 
     try {
-      const response = await axios.post("/api/secrets", { text, category });
+      const response = await axios.post(`${API_BASE}/api/secrets`, { text, category });
       onNewSecret(response.data);
       setText("");
       setCategory("random");
